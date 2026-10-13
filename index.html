@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <!-- Viewport: WAJIB untuk responsif & pendekatan mobile-first -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pilih item Mobile Legends: Bang Bang patch 2.2.16 dan hitung total gold build hero-mu.">
+  <title>Gold Market MLBB | Pasar Item Game</title>
+
+  <!-- Bootstrap 5.3.3 lewat CDN (butuh internet) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <!-- CSS buatan sendiri (dimuat SETELAH Bootstrap agar bisa menimpa) -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#katalog">Lewati ke pasar</a>
+
+  <!-- ================= NAVBAR RESPONSIF (hamburger di mobile) ================= -->
+  <nav class="navbar navbar-expand-md navbar-dark sticky-top site-nav" aria-label="Navigasi utama">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#beranda">
+        <span class="brand-mark" aria-hidden="true">&#9876;</span> Gold<span class="text-gold">Market</span> MLBB
+      </a>
+
+      <!-- Tombol Tas ada DI LUAR menu hamburger supaya selalu terlihat di HP -->
+      <button class="btn btn-outline-gold btn-sm ms-auto me-2 order-md-last" type="button"
+              data-bs-toggle="offcanvas" data-bs-target="#panelKeranjang"
+              aria-controls="panelKeranjang">
+        Tas
+        <span id="cartCount" class="badge rounded-pill bg-gold text-dark ms-1">0</span>
+      </button>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#menuUtama" aria-controls="menuUtama"
+              aria-expanded="false" aria-label="Buka atau tutup menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="menuUtama">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="#katalog">Katalog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#tentang">Tentang</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <header id="beranda" class="hero">
+      <div class="container">
+        <p class="eyebrow">&#9876; Pasar Item &middot; Patch 2.2.16</p>
+        <h1 class="hero-title">Hitung <span class="text-gold">Total Gold</span> Build Hero&#8209;mu</h1>
+        <p class="hero-lead">Pilih dari <strong id="totalItem">0</strong> item Mobile Legends: Bang Bang, masukkan ke tas, lalu lihat rincian harganya. Slot item tidak dibatasi.</p>
+        <a href="#katalog" class="btn btn-gold btn-lg">Mulai Pilih Item</a>
+      </div>
+    </header>
+
+    <!-- Ticker harga berjalan (diisi lewat JS) -->
+    <div class="ticker" aria-label="Item termahal di pasar">
+      <div class="ticker-track" id="tickerTrack"></div>
+    </div>
+
+    <!-- ================= KATALOG ================= -->
+    <section id="katalog" class="section" aria-labelledby="judulKatalog">
+      <div class="container">
+        <h2 id="judulKatalog" class="section-title">Pilih Item Build</h2>
+        <p class="text-muted-2">Tekan <strong>+ Tas</strong> pada item yang kamu mau (boleh berkali-kali). Total gold dihitung otomatis di tombol Tas.</p>
+
+        <!-- Kontrol: urutan + filter kategori (tanpa pencarian, semua item sudah tersedia) -->
+        <div class="toolbar">
+          <div class="toolbar-field">
+            <label for="urut" class="form-label">Urutkan</label>
+            <select id="urut" class="form-select">
+              <option value="default">Bawaan</option>
+              <option value="termurah">Harga: termurah</option>
+              <option value="termahal">Harga: termahal</option>
+              <option value="nama">Nama A-Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="filterKategori" class="filter-group" role="group" aria-label="Filter kategori"></div>
+
+        <p id="hasilInfo" class="text-muted-2" aria-live="polite"></p>
+
+        <!-- GRID RESPONSIF: 1 kolom (mobile) -> 2 (sm) -> 3 (lg) -> 4 (xl) -->
+        <div id="grid" class="row g-3 g-md-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4"></div>
+
+      </div>
+    </section>
+
+    <!-- ================= TENTANG ================= -->
+    <section id="tentang" class="section section-alt" aria-labelledby="judulTentang">
+      <div class="container">
+        <h2 id="judulTentang" class="section-title">Tentang Katalog</h2>
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <p>Ini adalah tugas rutin 3 mata kuliah Pemrograman Web: halaman katalog produk responsif memakai <strong>Bootstrap 5</strong> dengan pendekatan <em>mobile-first</em>.</p>
+            <p class="mb-0">Data item diambil dari <a href="https://mlbbhub.com/items" target="_blank" rel="noopener">mlbbhub.com</a> (patch 2.2.16). Harga adalah harga gold di dalam game dan bisa berubah di patch berikutnya.</p>
+          </div>
+          <div class="col-12 col-md-6">
+            <ul class="list-unstyled feature-list mb-0">
+              <li>Grid responsif 1 &rarr; 2 &rarr; 3 &rarr; 4 kolom</li>
+              <li>Navbar hamburger di layar kecil</li>
+              <li>Filter kategori dan pengurutan harga</li>
+              <li>Rarity item (Common sampai Legendary)</li>
+              <li>Tas belanja dengan jumlah (+/-) dan rincian harga</li>
+              <li>Tipografi fluid dengan <code>clamp()</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row gy-3 align-items-center">
+        <div class="col-12 col-md-6">
+          <strong>Gold<span class="text-gold">Market</span> MLBB</strong>
+          <div class="small text-muted-2">Tugas Rutin 3 &middot; Pemrograman Web &middot; Universitas Negeri Medan</div>
+        </div>
+        <div class="col-12 col-md-6 text-md-end small text-muted-2">
+          Mobile Legends: Bang Bang adalah merek dagang Moonton. Situs ini hanya proyek belajar, bukan toko sungguhan.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= MODAL DETAIL ITEM ================= -->
+  <div class="modal fade" id="modalItem" tabindex="-1" aria-labelledby="modalJudul" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="modalJudul"></h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-gold" id="modalTambah">Masukkan ke Tas</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL RINCIAN HARGA (struk) ================= -->
+  <div class="modal fade" id="modalRincian" tabindex="-1" aria-labelledby="judulRincian" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title fs-5" id="judulRincian">Rincian Harga Item</h2>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="modal-body" id="rincianBody"></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-gold" id="rincianReset">Kosongkan &amp; mulai lagi</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PANEL TAS BELANJA ================= -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="panelKeranjang" aria-labelledby="judulKeranjang">
+    <div class="offcanvas-header">
+      <h2 class="offcanvas-title fs-5" id="judulKeranjang">Tas Belanja</h2>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Tutup"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+      <label for="namaBuild" class="form-label text-muted-2 small mb-1">Nama build / hero (opsional)</label>
+      <input id="namaBuild" type="text" class="form-control build-input mb-3" maxlength="40" placeholder="Contoh: Build Alucard">
+      <ul id="daftarKeranjang" class="list-unstyled flex-grow-1"></ul>
+      <div class="cart-total">
+        <span>Total</span> <strong id="totalGold">0</strong> <span class="text-gold">Gold</span>
+      </div>
+      <button type="button" class="btn btn-gold mt-3" id="btnRincian">Lihat Rincian Harga</button>
+      <button type="button" class="btn btn-outline-light mt-2" id="kosongkan">Kosongkan tas</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

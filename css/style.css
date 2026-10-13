@@ -1,0 +1,230 @@
+/* =====================================================
+   GOLD MARKET MLBB - style.css
+   Pendekatan MOBILE-FIRST:
+   1) Aturan dasar di bawah ditulis untuk layar HP.
+   2) Layar yang lebih besar ditambahkan lewat @media (min-width: ...)
+   Breakpoint yang dipakai: 576px, 768px, 992px, 1200px (sama dengan Bootstrap)
+   ===================================================== */
+
+/* ---------- Variabel warna & tipografi ---------- */
+:root {
+  --bg: #0b0f1a;
+  --bg-alt: #101626;
+  --card: #151c2f;
+  --line: #243049;
+  --text: #e8ecf5;
+  --muted: #9aa6bf;
+  --gold: #f5b942;
+  --gold-dark: #d99a1f;
+
+  /* clamp(minimum, ideal, maksimum): ukuran huruf mengikuti lebar layar */
+  --fs-hero:  clamp(1.75rem, 1.1rem + 3.2vw, 3.5rem);
+  --fs-title: clamp(1.4rem, 1.1rem + 1.4vw, 2.2rem);
+  --fs-lead:  clamp(1rem, 0.95rem + 0.4vw, 1.2rem);
+  --space-section: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+/* ---------- Dasar ---------- */
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+}
+a { color: var(--gold); }
+a:hover { color: #ffd37a; }
+code { color: var(--gold); }
+.text-gold { color: var(--gold) !important; }
+.text-muted-2 { color: var(--muted); }
+.bg-gold { background: var(--gold) !important; }
+
+/* Fokus keyboard yang jelas (aksesibilitas) */
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 0;
+  background: var(--gold); color: #000; padding: .5rem 1rem; z-index: 2000;
+}
+.skip-link:focus { left: 0; }
+
+/* ---------- Tombol ---------- */
+.btn-gold { background: var(--gold); color: #1a1200; font-weight: 600; border: 0; }
+.btn-gold:hover, .btn-gold:focus { background: var(--gold-dark); color: #1a1200; }
+.btn-outline-gold { color: var(--gold); border-color: var(--gold); }
+.btn-outline-gold:hover { background: var(--gold); color: #1a1200; }
+
+/* ---------- Navbar ---------- */
+.site-nav { background: rgba(11, 15, 26, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.brand-mark { color: var(--gold); }
+.site-nav .nav-link { padding-block: .6rem; }
+
+/* ---------- Hero ---------- */
+.hero {
+  padding-block: var(--space-section);
+  background:
+    radial-gradient(circle at 80% 0%, rgba(245,185,66,.18), transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(80,110,255,.15), transparent 45%),
+    var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.eyebrow { color: var(--gold); letter-spacing: .15em; text-transform: uppercase; font-size: .8rem; margin-bottom: .5rem; }
+.hero-title { font-size: var(--fs-hero); font-weight: 800; line-height: 1.15; max-width: 20ch; }
+.hero-lead { font-size: var(--fs-lead); color: var(--muted); max-width: 52ch; margin-block: 1rem 1.5rem; }
+
+/* ---------- Section ---------- */
+.section { padding-block: var(--space-section); }
+.section-alt { background: var(--bg-alt); border-top: 1px solid var(--line); }
+.section-title { font-size: var(--fs-title); font-weight: 700; margin-bottom: 1.25rem; }
+.feature-list li { padding: .35rem 0 .35rem 1.5rem; position: relative; }
+.feature-list li::before { content: "\2713"; color: var(--gold); position: absolute; left: 0; }
+
+/* ---------- Toolbar (urutan) ---------- */
+.toolbar { display: grid; gap: .75rem; margin-bottom: 1rem; }
+.toolbar .form-control, .toolbar .form-select {
+  background-color: var(--card); color: var(--text); border-color: var(--line);
+}
+.toolbar .form-control::placeholder { color: var(--muted); }
+.toolbar .form-label { color: var(--muted); font-size: .85rem; margin-bottom: .25rem; }
+
+/* ---------- Filter kategori: bisa digeser horizontal di HP ---------- */
+.filter-group { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .5rem; margin-bottom: .5rem; }
+.filter-btn {
+  flex: 0 0 auto; background: var(--card); color: var(--text);
+  border: 1px solid var(--line); border-radius: 999px; padding: .4rem 1rem; font-size: .9rem;
+}
+.filter-btn:hover { border-color: var(--gold); }
+.filter-btn[aria-pressed="true"] { background: var(--gold); color: #1a1200; border-color: var(--gold); font-weight: 600; }
+
+/* ---------- Card produk ---------- */
+.product-card {
+  height: 100%; display: flex; flex-direction: column;
+  background: var(--card); border: 1px solid var(--line); border-radius: 1rem; overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.product-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.product-img { background: #0e1424; padding: 1rem; display: flex; justify-content: center; }
+.product-img img { width: 100%; max-width: 160px; height: auto; } /* responsive image */
+.product-body { padding: 1rem; display: flex; flex-direction: column; flex: 1; }
+.product-name { font-size: 1.05rem; font-weight: 700; margin: .4rem 0 .5rem; }
+.product-stats { list-style: none; padding: 0; margin: 0 0 1rem; font-size: .88rem; color: var(--muted); }
+.product-stats li::before { content: "\25B8 "; color: var(--gold); }
+.product-footer { margin-top: auto; }
+.price { font-size: 1.2rem; font-weight: 800; color: var(--gold); margin-bottom: .6rem; }
+.price small { font-weight: 500; color: var(--muted); }
+.card-actions { display: grid; gap: .5rem; grid-template-columns: 1fr 1fr; }
+
+.product-body .badge-cat { align-self: flex-start; }
+.badge-cat { font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; padding: .3em .7em; border-radius: 999px; color: #0b0f1a; font-weight: 700; display: inline-block; }
+.cat-attack   { background: #ff6b6b; }
+.cat-magic    { background: #6ea8ff; }
+.cat-defense  { background: #5fd38d; }
+.cat-movement { background: #ffd166; }
+.cat-hybrid   { background: #c792ff; }
+
+/* ---------- Modal, keranjang, footer ---------- */
+.modal-content, .offcanvas { background: var(--card); color: var(--text); border: 1px solid var(--line); }
+.modal-header, .modal-footer, .offcanvas-header { border-color: var(--line); }
+.detail-img { max-width: 140px; margin: 0 auto 1rem; display: block; }
+.detail-list { padding-left: 1.1rem; }
+.cart-total { display: flex; justify-content: space-between; gap: .5rem; font-size: 1.1rem; padding-top: .75rem; border-top: 1px solid var(--line); }
+
+.site-footer { background: #080b14; border-top: 1px solid var(--line); padding-block: 2rem; }
+
+/* ---------- Tema pasar item game: koin, rarity, ticker ---------- */
+:root {
+  --r-common: #8b97ad; --r-rare: #4da3ff; --r-epic: #b46bff; --r-legend: #ffb53d;
+}
+.coin {
+  display: inline-block; width: 1em; height: 1em; border-radius: 50%; vertical-align: -.12em;
+  background: radial-gradient(circle at 35% 30%, #fff1b8, var(--gold) 55%, #b97a10);
+  box-shadow: 0 0 0 2px rgba(245,185,66,.35); margin-inline: .15em .35em;
+}
+.price .coin { margin-inline: 0 .4em; }
+.ticker-item .coin { margin-inline: .3em 0; }
+
+.badges { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+.rarity-tag { font-size: .7rem; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; padding: .3em .7em; border-radius: 999px; border: 1px solid currentColor; }
+.tag-common { color: var(--r-common); }
+.tag-rare   { color: var(--r-rare); }
+.tag-epic   { color: var(--r-epic); }
+.tag-legend { color: var(--r-legend); }
+
+/* Warna garis kartu & cahaya mengikuti rarity */
+.rarity-common { border-top: 3px solid var(--r-common); }
+.rarity-rare   { border-top: 3px solid var(--r-rare); }
+.rarity-epic   { border-top: 3px solid var(--r-epic); }
+.rarity-legend { border-top: 3px solid var(--r-legend); box-shadow: 0 0 22px rgba(255,181,61,.18); }
+.rarity-rare:hover   { border-color: var(--r-rare); }
+.rarity-epic:hover   { border-color: var(--r-epic); }
+.rarity-common:hover { border-color: var(--r-common); }
+
+/* Ticker harga berjalan */
+.ticker { overflow: hidden; background: #0a0e18; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.ticker-track { display: inline-flex; gap: 2rem; padding: .6rem 0; animation: jalan 40s linear infinite; }
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker-item { font-size: .9rem; color: var(--muted); }
+.ticker-item b { color: var(--gold); margin-left: .3rem; }
+@keyframes jalan { to { transform: translateX(-50%); } }
+
+/* ---------- Tas belanja: jumlah (+/-) & rincian harga ---------- */
+.build-input { background-color: var(--bg-alt); color: var(--text); border-color: var(--line); }
+.build-input::placeholder { color: var(--muted); }
+.build-input:focus { background-color: var(--bg-alt); color: var(--text); }
+.btn-in-bag { background: transparent; color: var(--gold); border: 1px solid var(--gold); font-weight: 600; }
+.btn-in-bag:hover { background: rgba(245,185,66,.12); color: var(--gold); }
+
+.cart-item { display: grid; grid-template-columns: 1fr auto; gap: .4rem .75rem; padding: .75rem 0; border-bottom: 1px solid var(--line); align-items: center; }
+.cart-info { display: flex; flex-direction: column; grid-column: 1 / -1; }
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: .5rem; overflow: hidden; }
+.qty button { background: var(--bg-alt); color: var(--text); border: 0; width: 2.2rem; height: 2rem; font-size: 1.1rem; }
+.qty button:hover { background: var(--gold); color: #1a1200; }
+.qty span { min-width: 2.2rem; text-align: center; }
+.cart-remove { background: none; border: 0; color: #ff8080; justify-self: end; font-size: .85rem; }
+
+.receipt { --bs-table-bg: transparent; --bs-table-border-color: var(--line); }
+.receipt th { color: var(--muted); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+.receipt-total td { color: var(--gold); font-weight: 800; font-size: 1.1rem; border-top: 2px solid var(--gold); }
+.receipt-total td:last-child { white-space: nowrap; }
+.summary-list { list-style: none; padding: 0; margin: 0; }
+.summary-list li { display: flex; justify-content: space-between; gap: 1rem; padding: .45rem 0; border-bottom: 1px dashed var(--line); }
+.summary-list span { color: var(--muted); }
+.summary-list strong { text-align: right; }
+
+/* =====================================================
+   BREAKPOINT 1: >= 576px (HP besar / landscape)
+   ===================================================== */
+@media (min-width: 576px) {
+  .toolbar { grid-template-columns: minmax(0, 320px); }
+}
+
+/* =====================================================
+   BREAKPOINT 2: >= 768px (tablet)
+   ===================================================== */
+@media (min-width: 768px) {
+  .filter-group { flex-wrap: wrap; overflow-x: visible; }
+  .product-body { padding: 1.1rem; }
+}
+
+/* =====================================================
+   BREAKPOINT 3: >= 992px (laptop / desktop)
+   ===================================================== */
+@media (min-width: 992px) {
+  .hero { text-align: left; }
+  .product-img img { max-width: 150px; }
+}
+
+/* =====================================================
+   BREAKPOINT 4: >= 1200px (layar lebar) - grid jadi 4 kolom
+   ===================================================== */
+@media (min-width: 1200px) {
+  .container { max-width: 1240px; }
+}
+
+/* Hormati pengguna yang mematikan animasi */
+@media (prefers-reduced-motion: reduce) {
+  .product-card { transition: none; }
+  .ticker { overflow-x: auto; }
+  .ticker-track { animation: none; }
+  html { scroll-behavior: auto; }
+}
+html { scroll-behavior: smooth; }
